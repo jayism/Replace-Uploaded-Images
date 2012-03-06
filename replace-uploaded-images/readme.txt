@@ -16,10 +16,13 @@ The size of 'Large size' images can be edited in Settings -> Media -> Image Size
 
 == Installation ==
 
-1. Unzip the archive if the file is zipped, and copy the 'replace-uploaded-images' folder to the '/wp-content/plugins/' directory.
+1. Unzip the archive and copy the 'replace-uploaded-images' folder to the '/wp-content/plugins/' directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+
+= 0.2 =
+* Add multisite compatibility.
 
 = 0.1 =
 * First version

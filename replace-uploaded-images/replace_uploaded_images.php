@@ -5,7 +5,7 @@ Plugin URI: http://mikekelly.myblog.arts.ac.uk/software
 Description: Replaces the uploaded image with the Wordpress-generated 'Large' image, as specified in Settings -> Media
 			 This was created in response to users uploading very large images directly from their digital cameras.
 			 Can be optionally disabled in Settings -> Media.
-Version: 0.1
+Version: 0.2
 Author: Mike Kelly, Serge Rauber
 Author URI: http://mikekelly.myblog.arts.ac.uk
 
@@ -29,7 +29,7 @@ function rui_replace_uploaded_image($image_data) {
 	
 	$rui_enabled = get_option( 'rui_enable_disable' );
 	// Disabled? Return original image data
-	if ( $rui_enabled == 0 ) {
+	if ( $rui_enabled === '0' ) {
 		return $image_data;
 	}
 	
@@ -63,8 +63,14 @@ function rui_section_title_and_description() {
 }
 
 function rui_enable_disable() {
+	$rui_enabled =  get_option('rui_enable_disable');
+	if ( !$rui_enabled && $rui_enabled !== '0'){
+		// Enable RUI by default. The option value is only written if explicitly disabled.
+		// This means we don't have to write a default value to every single blog, we just check to see if the option has been set.
+		$rui_enabled = '1';
+	}
 	?><fieldset><legend class="hidden"><?php _e('Replace uploaded images', 'rui_replace_uploaded_images') ?></legend>
-<input id="rui_enable_disable" type="checkbox" value="1" name="rui_enable_disable" <?php checked('1',  get_option('rui_enable_disable') ); ?>/>
+<input id="rui_enable_disable" type="checkbox" value="1" name="rui_enable_disable" <?php checked('1', $rui_enabled); ?>/>
 <label for="rui_enable_disable"><?php _e('enabled', 'rui_replace_uploaded_images'); ?></label>
 </fieldset><?php
 }
